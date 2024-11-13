@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iOS Video Loop with Centered Live Clock Overlay</title>
+  <style>
+    /* Basic styles */
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    /* Full-screen video */
+    .video-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Centered clock overlay */
+    .clock {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 3em;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    }
+  </style>
+</head>
+<body>
+  <div class="video-container">
+    <!-- Looping video -->
+    <video autoplay loop muted playsinline>
+      <source src="RTCdec12.MOV" type="video/mov">
+      Your browser does not support the video tag.
+    </video>
+    <!-- Centered Clock overlay -->
+    <div class="clock" id="clock">00:00:00</div>
+  </div>
+
+  <script>
+    // Update the clock every second
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    // Initialize and start the clock update interval
+    setInterval(updateClock, 1000);
+    updateClock();  // Initial call to display time immediately
+  </script>
+</body>
+</html>
